@@ -1,0 +1,59 @@
+--1
+select  count(*)
+from artists a;
+
+--2
+select *
+from artists a 
+inner join albums al on a.ArtistId = al.artistid
+where al.title="Voodoo Lounge";
+
+--3
+SELECT count(*)
+from artists a 
+inner join albums alm on a.artistid = alm.ArtistId
+where a.Name = "Ozzy Osbourne"
+
+--4
+select count(t.trackid)
+from artists a 
+join albums al on a.ArtistId = al.ArtistId 
+join tracks t on al.AlbumId = t.AlbumId 
+where a.Name = "Red Hot Chili Peppers"
+
+--5
+select trackid, name, milliseconds
+from tracks t 
+order by Milliseconds DESC
+limit 3;
+
+--6
+SELECT g.name
+from tracks t
+join genres g on t.GenreId = g.GenreId 
+order by t.Bytes ASC
+limit 1;
+
+--7
+select g.name, count(*) as conteo
+from tracks t 
+join genres g on t.GenreId = g.GenreId 
+group by g.GenreId, g.Name 
+order by conteo desc
+limit 1;
+
+--8
+SELECT a.name, COUNT(t.trackid) AS conteo2
+FROM artists a
+JOIN albums al ON a.artistid = al.artistid
+JOIN tracks t ON al.albumid = t.albumid
+GROUP BY a.artistid, a.name
+ORDER BY conteo2 DESC
+LIMIT 10;
+
+--10
+SELECT t.name, COUNT(*) AS repetida
+FROM tracks t
+GROUP BY t.name
+ORDER BY repetida DESC
+LIMIT 1;
